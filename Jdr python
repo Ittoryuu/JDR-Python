@@ -1,0 +1,46 @@
+import random
+
+ENNEMI = 50
+HERO = 50
+FLASK = 3
+SKIP = False
+ACTION_INPUT = ['1', '2']
+
+while True: 
+    if SKIP:
+        print("Vous passez votre tour")
+        SKIP = False
+
+    else: 
+        choix_user = input("Souhaitez-vous attaquer (1) ou utiliser une potion (2) ?")
+        if choix_user not in ACTION_INPUT:
+            print("Veuillez utiliser une option disponible !")
+            continue
+    
+        if choix_user == '1':
+            Hit = random.randint(5,10)
+            ENNEMI -= Hit
+            print(f"Vous avez infligé {Hit} points de dégats ! ")
+            print(f"Il reste {ENNEMI} points de vie à ce mécréant !")
+        elif choix_user == '2' and FLASK > 0:
+            FLASK -= 1
+            SKIP = True
+            flask_use = random.randint(15,50)
+            HERO += flask_use
+            print(f"Vous avez recupéré {flask_use} PV ! ")
+        else:
+            print("Vous n'avez plus de potion.")
+            continue
+
+    if ENNEMI <= 0:
+        print(" Tu as gagné !")
+        break
+
+    Ennemi_hit = random.randint(5,15)
+    HERO -= Ennemi_hit
+    print(f"L'ennemi vous a infligé {Ennemi_hit} points de dégats ! ")
+    print(f"Il vous reste {HERO} points de vie.")
+
+    if HERO <= 0:
+        print("Tu as perdu !")
+        break
